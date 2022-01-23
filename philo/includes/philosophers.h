@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/01/22 20:24:07 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/01/23 17:34:55 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@
 
 typedef enum e_bool
 {
-	false,
-	true
+	false = 0,
+	true = 1,
+	fail = -1
 }	t_bool;
 
 typedef enum e_fork
 {
-	taken 0,
-	there 1
+	taken = 0,
+	there = 1
 }	t_fork;
 
 typedef enum e_routine
@@ -36,12 +37,13 @@ typedef enum e_routine
 	dreaming,
 	pondering,
 	dead
-}	t_routine
+}	t_routine;
 
 typedef struct s_philo
 {
 	int				id;
 	int				spag_plate;
+	t_routine		act;
 	pthread_mutex_t mutex_dead;
 	pthread_mutex_t mutex_fork;
 	pthread_mutex_t mutex_print;
@@ -56,5 +58,7 @@ typedef struct s_param
 	double	tt_think;
 	int		nb_serving;
 }	t_param;
+
+int	ft_atoi(const char *str);
 
 #endif
