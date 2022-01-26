@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 17:13:55 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/01/24 11:32:20 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:39:47 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_atoi(const char *str)
 	return ((int)nombre);
 }
 
-t_bool	bool_isdigit(char *str)
+t_result	bool_isdigit(char *str)
 {
 	while (*str)
 	{

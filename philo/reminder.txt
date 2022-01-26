@@ -1,1 +1,0 @@
-don't forget to submit the projet inside a folder named philo
