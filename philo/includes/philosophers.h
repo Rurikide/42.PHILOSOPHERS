@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/01/27 12:16:17 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/01/27 15:47:30 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,6 @@ typedef enum e_act
 	dead
 }	t_act;
 
-typedef struct s_philo
-{
-	pthread_mutex_t		mutex_fork;
-	struct t_container	*cont;
-	int					id;
-	int					spag_plate;
-	t_act				act;
-}	t_philo;
-
 typedef struct s_param
 {
 	int		nb_philo;
@@ -60,10 +51,22 @@ typedef struct s_param
 	int		nb_serving;
 }	t_param;
 
+typedef struct s_philo
+{
+	pthread_mutex_t		fork_mutex;
+	struct s_container	*cont;
+	int					id;
+	int					spag_bowl;
+	long				last_meal;
+	t_act				act;
+	t_fork				fork;
+}	t_philo;
+
+
 typedef	struct s_container
 {
-	pthread_mutex_t	print;
-	pthread_mutex_t	sudden_death;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	death_mutex;
 	t_param			*param;
 	t_philo			*philo;
 	int				*queue;
@@ -76,7 +79,8 @@ t_result	bool_is_valid_input(int	ac, char **ag);
 int			ft_atoi(const char *str);
 
 void	init_container(t_container *cont, int ac, char **av);
-t_param	*set_parameters(int ac, char **av);
-t_philo *get_philosophers(t_container cont);
+void	init_philosophers(t_container *cont);
+void	set_parameters(t_container *cont, int ac, char **av);
 
+long long	ft_get_time_in_ms(void);
 #endif
