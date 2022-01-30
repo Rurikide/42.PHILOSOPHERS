@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 17:13:55 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/01/26 12:39:47 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/01/30 14:09:38 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,20 @@ t_result	bool_isdigit(char *str)
 	}
 	return (true);
 }
+
+t_result	bool_is_valid_input(int ac, char **av)
+{
+	int	i;
+
+	i = 1;
+	while (i < ac)
+	{
+		if (bool_isdigit(av[i]) == true)
+			i++;
+		else
+			return (false);
+	}
+	return (true);
+}
+
 

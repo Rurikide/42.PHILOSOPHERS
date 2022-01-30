@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/01/27 15:47:30 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/01/30 14:11:34 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+
+#define SUCCESS 0
 
 typedef pthread_mutex_t		mutex_t;
 
@@ -49,6 +51,7 @@ typedef struct s_param
 	long	tt_eat;
 	long	tt_sleep;
 	int		nb_serving;
+	// int		meal_option;
 }	t_param;
 
 typedef struct s_philo
@@ -61,7 +64,6 @@ typedef struct s_philo
 	t_act				act;
 	t_fork				fork;
 }	t_philo;
-
 
 typedef	struct s_container
 {
@@ -82,5 +84,8 @@ void	init_container(t_container *cont, int ac, char **av);
 void	init_philosophers(t_container *cont);
 void	set_parameters(t_container *cont, int ac, char **av);
 
+void	create_pthreads(t_container *cont);
+
 long long	ft_get_time_in_ms(void);
+void		*routine(void *cont_philo);
 #endif

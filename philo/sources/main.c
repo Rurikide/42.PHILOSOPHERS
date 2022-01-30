@@ -6,41 +6,44 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:21:25 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/01/27 14:53:58 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/01/30 14:19:01 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-//void	create_thread(void)
-//{
-//	pthread__t	p1;
-//
-//	pthread_create(&p1, NULL, &test, NULL);
-//	pthread_join(p1, NULL);
-//}
-
-void    *test()
+void	create_pthreads(t_container *cont)
 {
+	pthread_t	*pt;
+	int			i;
+
+	i = 0;
+	pt = malloc(sizeof(pthread_t) * cont->param->nb_philo);
+	while (i < cont->param->nb_philo)
+	{
+		if (pthread_create(&pt[i], NULL, routine, &cont->philo[i]) != SUCCESS)
+			printf("Error create thread\n");
+		i++;
+		printf("i = %d\n", i);
+	}
+	while (i > 0)
+	{
+		i--;
+		pthread_join(pt[i], NULL);
+	}
+	printf("I'm here\n");
+}
+
+void    *routine(void *cont_philo)
+{
+	t_philo	*philo;
+	
+	philo = (t_philo *)cont_philo;
+	
     printf("Hello\n");
     usleep(1000000);
     printf("Bye\n");
     return 0;
-}
-
-t_result	bool_is_valid_input(int ac, char **av)
-{
-	int	i;
-
-	i = 1;
-	while (i < ac)
-	{
-		if (bool_isdigit(av[i]) == true)
-			i++;
-		else
-			return (false);
-	}
-	return (true);
 }
 
 void	set_parameters(t_container *cont, int ac, char **av)
@@ -50,10 +53,10 @@ void	set_parameters(t_container *cont, int ac, char **av)
 	cont->param->tt_die = ft_atoi(av[2]);
 	cont->param->tt_eat = ft_atoi(av[3]);
 	cont->param->tt_sleep = ft_atoi(av[4]);
-	printf("nb_philo = %d\n", cont->param->nb_philo);
-	printf("time to die = %ld\n", cont->param->tt_die);
-	printf("time to eat = %ld\n", cont->param->tt_eat);
-	printf("time to sleep = %ld\n", cont->param->tt_sleep);
+	// printf("nb_philo = %d\n", cont->param->nb_philo);
+	// printf("time to die = %ld\n", cont->param->tt_die);
+	// printf("time to eat = %ld\n", cont->param->tt_eat);
+	// printf("time to sleep = %ld\n", cont->param->tt_sleep);
 
 	if (ac == 6)
 	{
@@ -91,7 +94,7 @@ void	init_container(t_container *cont, int ac, char **av)
 	cont->queue = malloc(sizeof(int) * cont->param->nb_philo);
 	cont->odd_one = cont->param->nb_philo;
 	cont->start_time = ft_get_time_in_ms();
-	printf("odd one = %d\n", cont->odd_one);
+	// printf("odd one = %d\n", cont->odd_one);
 	printf("start_time = %lld\n", cont->start_time);
 }
 
@@ -110,5 +113,6 @@ int main(int ac, char **av)
 		return (0);
 	}
 	init_container(&cont, ac, av);
+	create_pthreads(&cont);
     return (0);
 }
