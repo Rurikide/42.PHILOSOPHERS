@@ -6,7 +6,7 @@
 #    By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/19 19:22:46 by tshimoda          #+#    #+#              #
-#    Updated: 2022/01/23 17:30:26 by tshimoda         ###   ########.fr        #
+#    Updated: 2022/01/30 19:13:29 by tshimoda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SDIR= sources
 ODIR= objects
 
 SRCS= main.c \
+		init.c \
+		queue.c \
 		time.c \
 		utils.c \
 
