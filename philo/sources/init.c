@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:10:43 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/01/30 19:54:23 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/01 17:20:45 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,20 @@ void	set_parameters(t_container *cont, int ac, char **av)
 	cont->param->tt_die = ft_atoi(av[2]);
 	cont->param->tt_eat = ft_atoi(av[3]);
 	cont->param->tt_sleep = ft_atoi(av[4]);
+	if (cont->param->nb_philo < 1 || cont->param->tt_die < 1 || cont->param->tt_eat < 1 || cont->param->tt_sleep < 1)
+	{
+		printf("minimum value is 1\n");
+		exit (0);
+	}
 	if (ac == 6)
+	{
 		cont->param->nb_serving = ft_atoi(av[5]);
+		if (cont->param->nb_serving < 1)
+		{
+			printf("minimum value is 1\n");
+			exit (0);
+		}
+	}
 	else
 		cont->param->nb_serving = unavailable;
 }
@@ -57,6 +69,7 @@ void	init_philosophers(t_container *cont)
 		pthread_mutex_init(&cont->forks[i].fork_mutex, NULL);
 		cont->forks[i].fork_state = there;
 		cont->philo[i].lefty = &cont->forks[i];
+		// ATTENTION IL FAUT PLUS D'UN PHILO
 		cont->philo[i].righty = &cont->forks[(i + 1) % cont->param->nb_philo];
 		cont->philo[i].cont = cont;
 		cont->philo[i].id = i + 1;
@@ -81,6 +94,6 @@ void	init_container(t_container *cont, int ac, char **av)
 	set_parameters(cont, ac, av);
 	init_philosophers(cont);
 	init_queue(cont);
-	cont->odd_one = cont->param->nb_philo;
-	cont->start_time = ft_get_time_in_ms();
+	cont->simulation = START;
+	cont->start_time = timecode_in_ms();
 }

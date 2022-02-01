@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:08:31 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/01/30 19:55:40 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/01 13:00:29 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	update_queue(t_container *cont)
 		i++;
 	}
 	cont->queue[i] = temp;
-	i = 0;
-	printf("updated queue : ");
-	while (cont->queue[i])
-	{
-		printf(" %d ", cont->queue[i]);
-		i++;
-	}
-	printf("\n");
+	// i = 0;
+	// // printf("updated queue : ");
+	// while (cont->queue[i])
+	// {
+	// 	printf(" %d ", cont->queue[i]);
+	// 	i++;
+	// }
+	// // printf("\n");
 }
 
 void	init_queue(t_container *cont)

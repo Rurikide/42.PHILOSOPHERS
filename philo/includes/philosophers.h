@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/01/30 19:54:10 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/01 17:18:30 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # include <unistd.h>
 
 # define SUCCESS 0
-
+# define OVER 0
+# define START 1
 typedef pthread_mutex_t		t_mutex;
 
 typedef enum e_result
@@ -78,12 +79,13 @@ typedef struct s_container
 	t_philo			*philo;
 	t_fork			*forks;
 	int				*queue;
-	int				odd_one;
+	int				simulation;
 	long long		start_time;
 }	t_container;
 
 t_result	bool_isdigit(char *str);
 t_result	bool_is_valid_input(int ac, char **ag);
+t_result	bool_usleep(long long ms, t_philo *philo);
 int			ft_atoi(const char *str);
 void		init_container(t_container *cont, int ac, char **av);
 void		init_philosophers(t_container *cont);
@@ -93,6 +95,9 @@ void		init_queue(t_container *cont);
 void		update_queue(t_container *cont);
 void		update_queue(t_container *cont);
 void		*routine(void *cont_philo);
-long long	ft_get_time_in_ms(void);
-void		check_forks(t_philo *philo);
+long long	timecode_in_ms(void);
+t_result	act_check_forks(t_philo *philo);
+void		act_fall_asleep(t_philo *philo);
+void		act_wake_up(t_philo *philo);
+
 #endif
