@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/01 21:32:09 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/02 18:15:34 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_result	bool_isdigit(char *str);
 t_result	bool_is_valid_input(int ac, char **ag);
 t_result	bool_usleep(long long ms, t_philo *philo);
 t_result	bool_is_dead(t_philo *philo);
+long long	timecode_in_ms(void);
 int			ft_atoi(const char *str);
 void		init_container(t_container *cont, int ac, char **av);
 void		init_philosophers(t_container *cont);
@@ -96,10 +97,10 @@ void		init_queue(t_container *cont);
 void		update_queue(t_container *cont);
 void		update_queue(t_container *cont);
 void		*routine(void *cont_philo);
-long long	timecode_in_ms(void);
-t_result	act_check_forks(t_philo *philo);
+void		act_check_forks(t_philo *philo);
 void		act_fall_asleep(t_philo *philo);
 void		act_wake_up(t_philo *philo);
-void		act_sudden_death(t_philo *philo);
+void		print_act(t_philo *philo, int mode);
+void		end_simulation(t_container *cont);
 
 #endif

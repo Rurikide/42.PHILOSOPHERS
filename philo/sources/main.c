@@ -6,91 +6,122 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:21:25 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/01 22:02:37 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/02 18:29:52 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	act_sudden_death(t_philo *philo)
+void	end_simulation(t_container *cont)
 {
-	long long current_time;
-	current_time = timecode_in_ms();
-	printf("%lld philo #%d has died in act_sudden_death()\n", (current_time - philo->cont->start_time), philo->id);
-	exit(0);
+	int i;
+
+	i = 0;
+	while (i < cont->param->nb_philo)
+	{
+		pthread_mutex_destroy(&cont->forks[i].fork_mutex);
+		i++;
+	}
+	pthread_mutex_destroy(&cont->death_mutex);
+	pthread_mutex_destroy(&cont->print_mutex);
+	free(cont->param);
+	free(cont->forks);
+	free(cont->philo);
+	free(cont->queue);
+	return ;
 }
 
-t_result	act_check_forks(t_philo *philo)
+void	act_check_forks(t_philo *philo)
 {
 	if (bool_is_dead(philo) == true)
 	{
-		printf("\t\tact_check_forks()AAA\n");
+		print_act(philo, 1);
+		return ;
 	}
 	if (philo->cont->queue[0] == philo->id)
 	{
 		if (bool_is_dead(philo) == true)
-	{
-		printf("\t\tact_check_forks()BBB\n");
-	}
+		{
+			print_act(philo, 1);
+			return ;
+		}
 		if (philo->lefty->fork_state == there && philo->righty->fork_state == there)
 		{
 			pthread_mutex_lock(&philo->lefty->fork_mutex);
 			philo->lefty->fork_state = taken;
-			printf("%lld philo #%d picks left fork\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
 
 			pthread_mutex_lock(&philo->righty->fork_mutex);
 			philo->righty->fork_state = taken;
-			printf("%lld philo #%d picks right fork\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
 
-			printf("%lld philo #%d is eating\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
-
+			print_act(philo, 1);
+			
 			philo->act = binging;
 			philo->spag_bowl++;
 			update_queue(philo->cont);
 			philo->last_meal = timecode_in_ms();
-			
 			if (bool_usleep(philo->cont->param->tt_eat, philo) == true)
-			{
-				pthread_mutex_lock(&philo->cont->death_mutex);
-				philo->cont->simulation = OVER;
-				philo->act = dead;
-				printf("%lld philo #%d has died.\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
-				pthread_mutex_unlock(&philo->cont->death_mutex);
-
-				pthread_mutex_unlock(&philo->lefty->fork_mutex);
-				pthread_mutex_unlock(&philo->righty->fork_mutex);
-				philo->lefty->fork_state = there;
-				philo->righty->fork_state = there;
-				
-				philo->cont->simulation = OVER;
-				exit (0);
-				return (true);
-			}
+				return ;
 			pthread_mutex_unlock(&philo->lefty->fork_mutex);
 			pthread_mutex_unlock(&philo->righty->fork_mutex);
 			philo->lefty->fork_state = there;
 			philo->righty->fork_state = there;
 		}
 	}
-	return (false);
+	return ;
+}
+void	print_act(t_philo *philo, int mode)
+{
+	pthread_mutex_lock(&philo->cont->print_mutex);
+	if (mode == 0 && philo->cont->simulation != OVER)
+		printf("%lld philo #%d has taken a fork\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
+	else if (mode == 1 && philo->cont->simulation == OVER)
+	{
+		pthread_mutex_unlock(&philo->cont->print_mutex);
+		return ;
+	}
+	if (mode == 1 && philo->act == pondering)
+		printf("%lld philo #%d is thinking\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
+	else if (mode == 1 && philo->act == binging)
+	{
+		printf("%lld philo #%d has taken a fork\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
+		printf("%lld philo #%d has taken a fork\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
+		printf("%lld philo #%d is eating\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
+	}
+	else if (mode == 1 && philo->act == dreaming)
+		printf("%lld philo #%d is sleeping\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
+	else if (mode == 1 && philo->act == dead)
+	{
+		printf("%lld philo #%d has died\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
+		philo->cont->simulation = OVER;
+	}
+	// if (philo->act != dead)
+	// {
+	// 	pthread_mutex_unlock(&philo->cont->print_mutex);
+	// 	return ;
+	// }
+	pthread_mutex_unlock(&philo->cont->print_mutex);
 }
 
 void act_fall_asleep(t_philo *philo)
 {
 	if (bool_is_dead(philo) == true)
 	{
-		printf("act_fall_asleep()CCC\n");
+		print_act(philo, 1);
+		return ;
 	}
-	printf("%lld philo #%d is sleeping\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
+	print_act(philo, 1);
 	bool_usleep(philo->cont->param->tt_sleep, philo);
 	philo->act = dreaming;
 }
 
 void act_wake_up(t_philo *philo)
 {
-	// if (bool_is_dead(philo) == true)
-	// 		exit(0);
-	printf("%lld philo #%d is thinking\n", (timecode_in_ms() - philo->cont->start_time), philo->id);
+	if (bool_is_dead(philo) == true)
+	{
+		print_act(philo, 1);
+		return ;
+	}
+	print_act(philo, 1);
 	philo->act = pondering;
 }
 
@@ -102,13 +133,11 @@ void	*routine(void *cont_philo)
 
 	while (philo->cont->simulation != OVER)
 	{
-		// if (philo->act == dead)
-		// 	act_sudden_death(philo);
 		if (philo->act == pondering)
 			act_check_forks(philo);
-		if (philo->act == binging)
+		else if (philo->act == binging)
 			act_fall_asleep(philo);
-		if (philo->act == dreaming)
+		else if (philo->act == dreaming)
 			act_wake_up(philo);
 	}
 	return (NULL);
@@ -130,5 +159,6 @@ int	main(int ac, char **av)
 	}
 	init_container(&cont, ac, av);
 	init_pthreads(&cont);
+	end_simulation(&cont);
 	return (0);
 }

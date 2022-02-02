@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:10:43 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/01 17:20:45 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/02 17:39:13 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_pthreads(t_container *cont)
 		i--;
 		pthread_join(pt[i], NULL);
 	}
+	free(pt);
 }
 
 void	set_parameters(t_container *cont, int ac, char **av)
