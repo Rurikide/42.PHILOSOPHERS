@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/02 19:38:44 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/03 11:01:58 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_param
 	long	tt_eat;
 	long	tt_sleep;
 	int		nb_serving;
+	int		nb_done_eat;
 }	t_param;
 
 typedef struct s_philo
@@ -85,7 +86,8 @@ typedef struct s_container
 
 t_result	bool_isdigit(char *str);
 t_result	bool_is_valid_input(int ac, char **ag);
-t_result	bool_usleep(long long ms, t_philo *philo);
+t_result	bool_is_less_than_1(t_container *cont);
+t_result	bool_usleep(long long time_param, t_philo *philo);
 t_result	bool_is_dead(t_philo *philo);
 long long	timecode_in_ms(void);
 int			ft_atoi(const char *str);

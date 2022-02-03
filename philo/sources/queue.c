@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:08:31 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/01 13:00:29 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/03 10:02:30 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,6 @@ void	update_queue(t_container *cont)
 		i++;
 	}
 	cont->queue[i] = temp;
-	// i = 0;
-	// // printf("updated queue : ");
-	// while (cont->queue[i])
-	// {
-	// 	printf(" %d ", cont->queue[i]);
-	// 	i++;
-	// }
-	// // printf("\n");
 }
 
 void	init_queue(t_container *cont)
@@ -57,5 +49,3 @@ void	init_queue(t_container *cont)
 		i += 2;
 	}
 }
-
-// printf("queue pos %d occupied by philo#%d\n", pos, cont->philo[i].id);

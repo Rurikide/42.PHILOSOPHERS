@@ -6,11 +6,30 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:10:43 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/02 20:10:25 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/03 10:10:35 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+void	end_simulation(t_container *cont)
+{
+	int i;
+
+	i = 0;
+	while (i < cont->param->nb_philo)
+	{
+		pthread_mutex_destroy(&cont->forks[i].fork_mutex);
+		i++;
+	}
+	pthread_mutex_destroy(&cont->death_mutex);
+	pthread_mutex_destroy(&cont->print_mutex);
+	free(cont->param);
+	free(cont->forks);
+	free(cont->philo);
+	free(cont->queue);
+	return ;
+}
 
 void	init_pthreads(t_container *cont)
 {
@@ -40,19 +59,10 @@ void	set_parameters(t_container *cont, int ac, char **av)
 	cont->param->tt_die = ft_atoi(av[2]);
 	cont->param->tt_eat = ft_atoi(av[3]);
 	cont->param->tt_sleep = ft_atoi(av[4]);
-	if (cont->param->nb_philo < 1 || cont->param->tt_die < 1 || cont->param->tt_eat < 1 || cont->param->tt_sleep < 1)
-	{
-		printf("minimum value is 1\n");
-		exit (0);
-	}
 	if (ac == 6)
 	{
 		cont->param->nb_serving = ft_atoi(av[5]);
-		if (cont->param->nb_serving < 1)
-		{
-			printf("minimum value is 1\n");
-			exit (0);
-		}
+		cont->param->nb_done_eat = 0;
 	}
 	else
 		cont->param->nb_serving = unavailable;
@@ -79,13 +89,6 @@ void	init_philosophers(t_container *cont)
 		i++;
 	}
 }
-	// i = 0;
-	// while (i < cont->param->nb_philo)
-	// {
-	// 	printf("lefty = %d\n", cont->philo[i].lefty->fork_state);
-	// 	printf("righty = %d\n", cont->philo[i].righty->fork_state);
-	// 	i++;
-	// }
 
 void	init_container(t_container *cont, int ac, char **av)
 {

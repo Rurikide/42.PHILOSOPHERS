@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 17:13:55 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/01/30 18:12:12 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/03 10:01:23 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,45 @@ t_result	bool_is_valid_input(int ac, char **av)
 			return (false);
 	}
 	return (true);
+}
+
+t_result	bool_is_less_than_1(t_container *cont)
+{
+	if (cont->param->nb_philo < 1)
+	{
+		printf("Error: minimum nb of philo is 1\n");
+		return (true);
+	}
+	if (cont->param->tt_die < 1)
+	{
+		printf("Error: minimum time_to_die is 1\n");
+		return (true);
+	}
+	if (cont->param->tt_eat < 1)
+	{
+		printf("Error: minimum time_to_eat is 1\n");
+		return (true);
+	}
+	if (cont->param->tt_sleep < 1)
+	{
+		printf("Error: minimum time_to_sleep is 1\n");
+		return (true);
+	}
+	if (cont->param->nb_serving != unavailable)
+	{
+		if (cont->param->nb_serving < 1)
+			printf("Error: minimum nb of serving is 1\n");
+		return (true);
+	}
+	return (false);
+}
+
+long long	timecode_in_ms(void)
+{
+	struct timeval	tv;
+	long long		timecode;
+
+	gettimeofday(&tv, NULL);
+	timecode = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	return (timecode);
 }
