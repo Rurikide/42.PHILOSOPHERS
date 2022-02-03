@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:20:19 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/03 18:02:42 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/03 18:17:34 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_result	bool_usleep(long long time_param, t_philo *philo)
 			return (true);
 		}
 		else
-			usleep(25);
+			usleep(24);
 	}
 	return (false);
 }
