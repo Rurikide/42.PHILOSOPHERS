@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/02 18:15:34 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/02 19:38:44 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void		*routine(void *cont_philo);
 void		act_check_forks(t_philo *philo);
 void		act_fall_asleep(t_philo *philo);
 void		act_wake_up(t_philo *philo);
-void		print_act(t_philo *philo, int mode);
+void		print_act(t_philo *philo);
 void		end_simulation(t_container *cont);
 
 #endif

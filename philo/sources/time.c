@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:25:02 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/02 17:53:37 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/02 20:56:12 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_result	bool_is_dead(t_philo *philo)
 		pthread_mutex_lock(&philo->cont->death_mutex);
 		// philo->cont->simulation = OVER;
 		philo->act = dead;
-		print_act(philo, 1);
+		printf("%lld philo #%d has died in bool_is_dead()\n", (current_time - philo->cont->start_time), philo->id);
+		philo->cont->simulation = OVER;
 		pthread_mutex_unlock(&philo->cont->death_mutex);
 		return (true);
 	}
@@ -40,9 +41,8 @@ t_result	bool_usleep(long long time_param, t_philo *philo)
 		{
 			
 			pthread_mutex_lock(&philo->cont->death_mutex);
-			// philo->cont->simulation = OVER;
 			philo->act = dead;
-			print_act(philo, 1);
+			print_act(philo);
 			pthread_mutex_unlock(&philo->cont->death_mutex);
 			pthread_mutex_unlock(&philo->lefty->fork_mutex);
 			pthread_mutex_unlock(&philo->righty->fork_mutex);

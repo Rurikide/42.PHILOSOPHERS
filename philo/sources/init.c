@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:10:43 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/02 17:39:13 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/02 20:10:25 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	init_philosophers(t_container *cont)
 		pthread_mutex_init(&cont->forks[i].fork_mutex, NULL);
 		cont->forks[i].fork_state = there;
 		cont->philo[i].lefty = &cont->forks[i];
-		// ATTENTION IL FAUT PLUS D'UN PHILO
 		cont->philo[i].righty = &cont->forks[(i + 1) % cont->param->nb_philo];
 		cont->philo[i].cont = cont;
 		cont->philo[i].id = i + 1;
