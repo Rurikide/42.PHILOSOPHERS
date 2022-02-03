@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 09:51:16 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/03 09:51:31 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/03 17:52:40 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	print_act(t_philo *philo)
 	long long current_time;
 	
 	current_time = (timecode_in_ms() - philo->cont->start_time);
+
 	pthread_mutex_lock(&philo->cont->print_mutex);
 	if (philo->cont->simulation == OVER)
 	{

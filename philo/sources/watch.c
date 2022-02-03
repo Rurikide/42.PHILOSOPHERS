@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:20:19 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/03 10:59:34 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/03 18:02:42 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,10 @@
 
 t_result	bool_is_dead(t_philo *philo)
 {
-	long long current_time;
-	
-	current_time = (timecode_in_ms() - philo->cont->start_time);
-	if (current_time - philo->last_meal >= philo->cont->param->tt_die)
+	if (timecode_in_ms() - philo->last_meal >= philo->cont->param->tt_die)
 	{
 		pthread_mutex_lock(&philo->cont->death_mutex);
-		// philo->cont->simulation = OVER;
-		philo->act = dead;
-		printf("%lld philo #%d died in bool_is_dead()\n", current_time, philo->id);
-		philo->cont->simulation = OVER;
+		philo->act = dead;		
 		pthread_mutex_unlock(&philo->cont->death_mutex);
 		return (true);
 	}
