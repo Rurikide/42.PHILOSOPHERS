@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 13:39:21 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 14:53:32 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ t_result	bool_usleep(long long time_param, t_philo *philo);
 t_result	bool_is_dead(t_philo *philo);
 long long	timecode_in_ms(void);
 int			ft_atoi(const char *str);
-void		init_container(t_container *cont, int ac, char **av);
+int			init_container(t_container *cont, int ac, char **av);
 void		init_philosophers(t_container *cont);
-void		set_parameters(t_container *cont, int ac, char **av);
+int			set_parameters(t_container *cont, int ac, char **av);
 void		init_pthreads(t_container *cont);
 void		init_queue(t_container *cont);
 void		update_queue(t_container *cont);

@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:10:43 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 13:15:36 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 14:53:42 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,34 @@ void	init_pthreads(t_container *cont)
 	free(pt);
 }
 
-void	set_parameters(t_container *cont, int ac, char **av)
+int	set_parameters(t_container *cont, int ac, char **av)
 {
 	cont->param = (t_param *)malloc(sizeof(t_param));
 	cont->param->nb_philo = ft_atoi(av[1]);
 	cont->param->tt_die = ft_atoi(av[2]);
 	cont->param->tt_eat = ft_atoi(av[3]);
 	cont->param->tt_sleep = ft_atoi(av[4]);
+	if (cont->param->nb_philo == -1 || cont->param->tt_die == -1 || \
+	cont->param->tt_eat == -1 || cont->param->tt_sleep == -1)
+	{
+		printf("Error: invalid integer\n");
+		free(cont->param);
+		return(-1);
+	}
 	if (ac == 6)
 	{
 		cont->param->nb_serving = ft_atoi(av[5]);
+		if (cont->param->nb_serving == -1)
+		{
+			printf("Error: invalid integer\n");
+			free(cont->param);
+			return(-1);
+		}
 		cont->param->nb_done_eat = 0;
 	}
 	else
 		cont->param->nb_serving = unavailable;
+	return (0);
 }
 
 void	init_philosophers(t_container *cont)
@@ -90,13 +104,16 @@ void	init_philosophers(t_container *cont)
 	}
 }
 
-void	init_container(t_container *cont, int ac, char **av)
+int	init_container(t_container *cont, int ac, char **av)
 {
+	if (set_parameters(cont, ac, av) == -1)
+		return (-1);
 	pthread_mutex_init(&cont->print_mutex, NULL);
 	pthread_mutex_init(&cont->death_mutex, NULL);
-	set_parameters(cont, ac, av);
+//	set_parameters(cont, ac, av);
 	init_philosophers(cont);
 	init_queue(cont);
 	cont->simulation = START;
 	cont->start_time = timecode_in_ms();
+	return (0);
 }

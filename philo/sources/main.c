@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:21:25 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 13:17:40 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 14:53:13 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ int	main(int ac, char **av)
 	}
 	if (bool_is_valid_input(ac, av) == false)
 	{
-		printf("Please enter only positive numerical values/characters.\n");
+		printf("Please enter only positive numerical values/integers.\n");
 		return (0);
 	}
-	init_container(&cont, ac, av);
+	if (init_container(&cont, ac, av) == -1)
+		return (-1);
 	if (bool_is_less_than_1(&cont) == true)
 	{
 		end_simulation(&cont);
