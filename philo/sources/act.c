@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 09:25:22 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 14:55:16 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:39:32 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	act_check_forks(t_philo *p)
 	{
 		if (p->lefty->fork_state == there && p->righty->fork_state == there)
 		{
-			pthread_mutex_lock(&p->lefty->fork_mutex);
-			p->lefty->fork_state = taken;
-			pthread_mutex_lock(&p->righty->fork_mutex);
-			p->righty->fork_state = taken;
+			pick_up_forks(p);
 			p->act = binging;
 			if (p->cont->param->nb_serving != unavailable)
 			{
@@ -37,13 +34,26 @@ void	act_check_forks(t_philo *p)
 			p->last_meal = timecode_in_ms();
 			if (bool_usleep(p->cont->param->tt_eat, p) == true)
 				return ;
-			p->lefty->fork_state = there;
-			p->righty->fork_state = there;
-			pthread_mutex_unlock(&p->lefty->fork_mutex);
-			pthread_mutex_unlock(&p->righty->fork_mutex);
+			replace_forks(p);
 		}
 	}
 	usleep(25);
+}
+
+void	pick_up_forks(t_philo *p)
+{
+	pthread_mutex_lock(&p->lefty->fork_mutex);
+	p->lefty->fork_state = taken;
+	pthread_mutex_lock(&p->righty->fork_mutex);
+	p->righty->fork_state = taken;
+}
+
+void	replace_forks(t_philo *p)
+{
+	p->lefty->fork_state = there;
+	pthread_mutex_unlock(&p->lefty->fork_mutex);
+	p->righty->fork_state = there;
+	pthread_mutex_unlock(&p->righty->fork_mutex);
 }
 
 void	act_fall_asleep(t_philo *p)

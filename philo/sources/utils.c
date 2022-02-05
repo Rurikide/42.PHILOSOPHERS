@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 17:13:55 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 14:44:28 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:46:41 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,9 @@ t_result	bool_is_less_than_1(t_container *cont)
 	return (false);
 }
 
-long long	timecode_in_ms(void)
+int	err_integer_limits(t_container *cont)
 {
-	struct timeval	tv;
-	long long		timecode;
-
-	gettimeofday(&tv, NULL);
-	timecode = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	return (timecode);
+	printf("Error: invalid integer\n");
+	free(cont->param);
+	return (-1);
 }

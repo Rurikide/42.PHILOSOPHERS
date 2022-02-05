@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:10:43 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 14:53:42 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:44:27 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,12 @@ int	set_parameters(t_container *cont, int ac, char **av)
 	cont->param->tt_sleep = ft_atoi(av[4]);
 	if (cont->param->nb_philo == -1 || cont->param->tt_die == -1 || \
 	cont->param->tt_eat == -1 || cont->param->tt_sleep == -1)
-	{
-		printf("Error: invalid integer\n");
-		free(cont->param);
-		return(-1);
-	}
+		return (err_integer_limits(cont));
 	if (ac == 6)
 	{
 		cont->param->nb_serving = ft_atoi(av[5]);
 		if (cont->param->nb_serving == -1)
-		{
-			printf("Error: invalid integer\n");
-			free(cont->param);
-			return(-1);
-		}
+			return (err_integer_limits(cont));
 		cont->param->nb_done_eat = 0;
 	}
 	else

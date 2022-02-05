@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 14:53:32 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:45:21 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,15 @@ int			ft_atoi(const char *str);
 int			init_container(t_container *cont, int ac, char **av);
 void		init_philosophers(t_container *cont);
 int			set_parameters(t_container *cont, int ac, char **av);
+int			err_integer_limits(t_container *cont);
 void		init_pthreads(t_container *cont);
 void		init_queue(t_container *cont);
 void		update_queue(t_container *cont);
 void		update_queue(t_container *cont);
 void		*routine(void *cont_philo);
 void		act_check_forks(t_philo *p);
+void		pick_up_forks(t_philo *p);
+void		replace_forks(t_philo *p);
 void		act_fall_asleep(t_philo *p);
 void		act_wake_up(t_philo *p);
 void		print_act(t_philo *p);

@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:20:19 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 13:34:51 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:40:58 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,14 @@ t_result	bool_usleep(long long time_param, t_philo *philo)
 			usleep(24);
 	}
 	return (false);
+}
+
+long long	timecode_in_ms(void)
+{
+	struct timeval	tv;
+	long long		timecode;
+
+	gettimeofday(&tv, NULL);
+	timecode = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	return (timecode);
 }
