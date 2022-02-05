@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 17:13:55 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/03 10:01:23 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 13:33:37 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,20 @@ t_result	bool_is_valid_input(int ac, char **av)
 
 t_result	bool_is_less_than_1(t_container *cont)
 {
-	if (cont->param->nb_philo < 1)
+	if (cont->param->nb_philo < 1 || cont->param->tt_die < 1)
 	{
-		printf("Error: minimum nb of philo is 1\n");
+		if (cont->param->nb_philo < 1)
+			printf("Error: minimum nb of philo is 1\n");
+		if (cont->param->tt_die < 1)
+			printf("Error: minimum time_to_die is 1\n");
 		return (true);
 	}
-	if (cont->param->tt_die < 1)
+	if (cont->param->tt_eat < 1 || cont->param->tt_sleep < 1)
 	{
-		printf("Error: minimum time_to_die is 1\n");
-		return (true);
-	}
-	if (cont->param->tt_eat < 1)
-	{
-		printf("Error: minimum time_to_eat is 1\n");
-		return (true);
-	}
-	if (cont->param->tt_sleep < 1)
-	{
-		printf("Error: minimum time_to_sleep is 1\n");
+		if (cont->param->tt_eat < 1)
+			printf("Error: minimum time_to_eat is 1\n");
+		if (cont->param->tt_sleep < 1)
+			printf("Error: minimum time_to_sleep is 1\n");
 		return (true);
 	}
 	if (cont->param->nb_serving != unavailable)

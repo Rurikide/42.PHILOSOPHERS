@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:10:43 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/03 10:10:35 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 13:15:36 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	end_simulation(t_container *cont)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < cont->param->nb_philo)

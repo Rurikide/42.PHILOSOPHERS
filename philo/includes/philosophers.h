@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/03 11:01:58 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 13:39:21 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # define SUCCESS 0
 # define OVER 0
 # define START 1
-typedef pthread_mutex_t		t_mutex;
+# define ARGUMENT "Enter: ./philo [nb_of_philo] [time_to_die] [time_to_eat] \
+[time_to_sleep] :optional: [nb_of_serving]\n"
 
 typedef enum e_result
 {
@@ -99,10 +100,10 @@ void		init_queue(t_container *cont);
 void		update_queue(t_container *cont);
 void		update_queue(t_container *cont);
 void		*routine(void *cont_philo);
-void		act_check_forks(t_philo *philo);
-void		act_fall_asleep(t_philo *philo);
-void		act_wake_up(t_philo *philo);
-void		print_act(t_philo *philo);
+void		act_check_forks(t_philo *p);
+void		act_fall_asleep(t_philo *p);
+void		act_wake_up(t_philo *p);
+void		print_act(t_philo *p);
 void		end_simulation(t_container *cont);
 
 #endif

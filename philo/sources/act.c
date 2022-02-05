@@ -6,65 +6,64 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 09:25:22 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/03 17:58:20 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 13:52:20 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	act_check_forks(t_philo *philo)
+void	act_check_forks(t_philo *p)
 {
-	if (bool_is_dead(philo) == true)
+	if (bool_is_dead(p) == true)
 	{
-		print_act(philo);
+		print_act(p);
 		return ;
 	}
-	if (philo->cont->queue[0] == philo->id)
+	if (p->cont->queue[0] == p->id)
 	{
-		if (philo->lefty->fork_state == there && philo->righty->fork_state == there)
+		if (p->lefty->fork_state == there && p->righty->fork_state == there)
 		{
-			pthread_mutex_lock(&philo->lefty->fork_mutex);
-			philo->lefty->fork_state = taken;
-			pthread_mutex_lock(&philo->righty->fork_mutex);
-			philo->righty->fork_state = taken;
-			philo->act = binging;
-			print_act(philo);
-			if (philo->cont->param->nb_serving != unavailable)
+			pthread_mutex_lock(&p->lefty->fork_mutex);
+			p->lefty->fork_state = taken;
+			pthread_mutex_lock(&p->righty->fork_mutex);
+			p->righty->fork_state = taken;
+			p->act = binging;
+			if (p->cont->param->nb_serving != unavailable)
 			{
-				philo->spag_bowl++;
+				p->spag_bowl++;
 			}
-			update_queue(philo->cont);
-			philo->last_meal = timecode_in_ms();
-			if (bool_usleep(philo->cont->param->tt_eat, philo) == true)
+			print_act(p);
+			update_queue(p->cont);
+			p->last_meal = timecode_in_ms();
+			if (bool_usleep(p->cont->param->tt_eat, p) == true)
 				return ;
-			philo->lefty->fork_state = there;
-			philo->righty->fork_state = there;
-			pthread_mutex_unlock(&philo->lefty->fork_mutex);
-			pthread_mutex_unlock(&philo->righty->fork_mutex);
+			p->lefty->fork_state = there;
+			p->righty->fork_state = there;
+			pthread_mutex_unlock(&p->lefty->fork_mutex);
+			pthread_mutex_unlock(&p->righty->fork_mutex);
 		}
 	}
-	else
-		usleep(25);
+	usleep(25);
 }
 
-void act_fall_asleep(t_philo *philo)
+void	act_fall_asleep(t_philo *p)
 {
-	philo->act = dreaming;
-	print_act(philo);
-	if (bool_usleep(philo->cont->param->tt_sleep, philo) == true)
+	p->act = dreaming;
+	print_act(p);
+	if (bool_usleep(p->cont->param->tt_sleep, p) == true)
 	{
-		print_act(philo);
+		print_act(p);
 		return ;
 	}
 }
 
-void act_wake_up(t_philo *philo)
+void	act_wake_up(t_philo *p)
 {
-	if (bool_is_dead(philo) == true)
+	if (bool_is_dead(p) == true)
 	{
-		print_act(philo);
+		print_act(p);
 		return ;
 	}
-	philo->act = pondering;
-	print_act(philo);
+	p->act = pondering;
+	print_act(p);
 }
