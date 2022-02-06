@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 17:13:55 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 15:46:41 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 17:50:51 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,10 @@ t_result	bool_is_less_than_1(t_container *cont)
 	if (cont->param->nb_serving != unavailable)
 	{
 		if (cont->param->nb_serving < 1)
+		{
 			printf("Error: minimum nb of serving is 1\n");
-		return (true);
+			return (true);
+		}
 	}
 	return (false);
 }

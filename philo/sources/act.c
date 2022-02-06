@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 09:25:22 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 15:39:32 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:24:08 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ void	act_check_forks(t_philo *p)
 		if (p->lefty->fork_state == there && p->righty->fork_state == there)
 		{
 			pick_up_forks(p);
-			p->act = binging;
-			if (p->cont->param->nb_serving != unavailable)
-			{
-				p->spag_bowl++;
-			}
 			print_act(p);
 			update_queue(p->cont);
+			if (p->cont->param->nb_serving != unavailable)
+			{
+				if (bool_is_full(p) == true)
+					if (bool_service_done(p) == true)
+						return ;
+			}
 			p->last_meal = timecode_in_ms();
 			if (bool_usleep(p->cont->param->tt_eat, p) == true)
 				return ;
@@ -46,6 +47,8 @@ void	pick_up_forks(t_philo *p)
 	p->lefty->fork_state = taken;
 	pthread_mutex_lock(&p->righty->fork_mutex);
 	p->righty->fork_state = taken;
+	p->act = binging;
+	p->spag_bowl++;
 }
 
 void	replace_forks(t_philo *p)

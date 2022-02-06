@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 19:10:43 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 15:44:27 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 19:05:31 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	init_container(t_container *cont, int ac, char **av)
 		return (-1);
 	pthread_mutex_init(&cont->print_mutex, NULL);
 	pthread_mutex_init(&cont->death_mutex, NULL);
-//	set_parameters(cont, ac, av);
 	init_philosophers(cont);
 	init_queue(cont);
 	cont->simulation = START;

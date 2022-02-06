@@ -6,11 +6,38 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 09:51:16 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 13:40:09 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:20:40 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+t_result	bool_is_full(t_philo *p)
+{
+	if (p->spag_bowl == p->cont->param->nb_serving)
+	{
+		p->cont->param->nb_done_eat++;
+		return (true);
+	}
+	return (false);
+}
+
+t_result	bool_service_done(t_philo *p)
+{
+	if (p->cont->param->nb_done_eat == p->cont->param->nb_philo)
+	{
+		p->cont->simulation = OVER;
+		return (true);
+	}
+	return (false);
+}
+
+void	print_eat(t_philo *p, long long current_time)
+{
+	printf("%lld philo %d has taken a fork\n", current_time, p->id);
+	printf("%lld philo %d has taken a fork\n", current_time, p->id);
+	printf("%lld philo %d is eating\n", current_time, p->id);
+}
 
 void	print_act(t_philo *p)
 {
@@ -27,11 +54,7 @@ void	print_act(t_philo *p)
 		printf("%lld philo #%d is thinking\n", \
 		(timecode_in_ms() - p->cont->start_time), p->id);
 	else if (p->act == binging)
-	{
-		printf("%lld philo %d has taken a fork\n", current_time, p->id);
-		printf("%lld philo %d has taken a fork\n", current_time, p->id);
-		printf("%lld philo %d is eating\n", current_time, p->id);
-	}
+		print_eat(p, current_time);
 	else if (p->act == dreaming)
 		printf("%lld philo %d is sleeping\n", current_time, p->id);
 	else if (p->act == dead)

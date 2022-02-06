@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 15:45:21 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 19:11:43 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ t_result	bool_is_valid_input(int ac, char **ag);
 t_result	bool_is_less_than_1(t_container *cont);
 t_result	bool_usleep(long long time_param, t_philo *philo);
 t_result	bool_is_dead(t_philo *philo);
+t_result	bool_is_full(t_philo *p);
+t_result	bool_service_done(t_philo *p);
 long long	timecode_in_ms(void);
 int			ft_atoi(const char *str);
 int			init_container(t_container *cont, int ac, char **av);
@@ -107,6 +109,8 @@ void		replace_forks(t_philo *p);
 void		act_fall_asleep(t_philo *p);
 void		act_wake_up(t_philo *p);
 void		print_act(t_philo *p);
+void		print_eat(t_philo *p, long long current_time);
+void		simulation_one(t_container *cont);
 void		end_simulation(t_container *cont);
 
 #endif

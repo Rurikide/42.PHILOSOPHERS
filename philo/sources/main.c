@@ -6,12 +6,11 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:21:25 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 14:53:13 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/05 19:11:28 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-//2 310 200 100
 
 void	*routine(void *cont_philo)
 {
@@ -35,6 +34,18 @@ void	*routine(void *cont_philo)
 	return (NULL);
 }
 
+void	simulation_one(t_container *cont)
+{
+	long long	current_time;
+
+	current_time = timecode_in_ms() - cont->start_time;
+	printf("%lld philo 1 has taken a fork\n", current_time);
+	bool_usleep(cont->param->tt_die, cont->philo);
+	current_time = timecode_in_ms() - cont->start_time;
+	printf("%lld philo 1 died\n", current_time);
+	return ;
+}
+
 int	main(int ac, char **av)
 {
 	t_container	cont;
@@ -56,8 +67,10 @@ int	main(int ac, char **av)
 		end_simulation(&cont);
 		return (0);
 	}
-	// IF NB PHILO == 1 !!! HARD CODER???
-	init_pthreads(&cont);
+	if (cont.param->nb_philo == 1)
+		simulation_one(&cont);
+	else
+		init_pthreads(&cont);
 	end_simulation(&cont);
 	return (0);
 }
