@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/06 13:18:24 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/06 13:58:07 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int			err_integer_limits(t_container *cont);
 void		init_philosophers(t_container *cont);
 void		init_pthreads(t_container *cont);
 void		init_queue(t_container *cont);
-void		update_queue(t_container *cont);
 void		update_queue(t_container *cont);
 void		*routine(void *cont_philo);
 void		act_check_forks(t_philo *p);
