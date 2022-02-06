@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 09:51:16 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/06 12:41:59 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/06 13:15:16 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ t_result	bool_service_done(t_philo *p)
 		return (true);
 	}
 	return (false);
+}
+
+void	simulation_one(t_container *cont)
+{
+	long long	current_time;
+
+	current_time = timecode_in_ms() - cont->start_time;
+	printf("%lld philo 1 has taken a fork\n", current_time);
+	bool_usleep(cont->param->tt_die, cont->philo);
+	current_time = timecode_in_ms() - cont->start_time;
+	printf("%lld philo 1 died\n", current_time);
+	return ;
 }
 
 void	print_eat(t_philo *p, long long current_time)
