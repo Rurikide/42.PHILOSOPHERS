@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/06 12:44:51 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/06 13:18:24 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ t_result	bool_service_done(t_philo *p);
 long long	timecode_in_ms(void);
 int			ft_atoi(const char *str);
 int			init_container(t_container *cont, int ac, char **av);
-void		init_philosophers(t_container *cont);
 int			set_parameters(t_container *cont, int ac, char **av);
 int			err_integer_limits(t_container *cont);
+void		init_philosophers(t_container *cont);
 void		init_pthreads(t_container *cont);
 void		init_queue(t_container *cont);
 void		update_queue(t_container *cont);
@@ -110,7 +110,6 @@ void		act_fall_asleep(t_philo *p);
 void		act_wake_up(t_philo *p);
 void		print_act(t_philo *p);
 void		print_eat(t_philo *p, long long current_time);
-void		*routine_one(void *cont_philo);
 void		simulation_one(t_container *cont);
 void		end_simulation(t_container *cont);
 
