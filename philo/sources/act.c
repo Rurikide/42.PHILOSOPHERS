@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 09:25:22 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 18:24:08 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/06 14:01:37 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	act_check_forks(t_philo *p)
 			p->last_meal = timecode_in_ms();
 			if (bool_usleep(p->cont->param->tt_eat, p) == true)
 				return ;
-			replace_forks(p);
+			put_down_forks(p);
 		}
 	}
 	usleep(25);
@@ -51,7 +51,7 @@ void	pick_up_forks(t_philo *p)
 	p->spag_bowl++;
 }
 
-void	replace_forks(t_philo *p)
+void	put_down_forks(t_philo *p)
 {
 	p->lefty->fork_state = there;
 	pthread_mutex_unlock(&p->lefty->fork_mutex);

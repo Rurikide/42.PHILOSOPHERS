@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 19:22:15 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/06 13:58:07 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/06 14:01:44 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void		update_queue(t_container *cont);
 void		*routine(void *cont_philo);
 void		act_check_forks(t_philo *p);
 void		pick_up_forks(t_philo *p);
-void		replace_forks(t_philo *p);
+void		put_down_forks(t_philo *p);
 void		act_fall_asleep(t_philo *p);
 void		act_wake_up(t_philo *p);
 void		print_act(t_philo *p);
