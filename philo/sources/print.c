@@ -6,7 +6,7 @@
 /*   By: tshimoda <tshimoda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 09:51:16 by tshimoda          #+#    #+#             */
-/*   Updated: 2022/02/05 18:20:40 by tshimoda         ###   ########.fr       */
+/*   Updated: 2022/02/06 12:41:59 by tshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_act(t_philo *p)
 		return ;
 	}
 	if (p->act == pondering)
-		printf("%lld philo #%d is thinking\n", \
+		printf("%lld philo %d is thinking\n", \
 		(timecode_in_ms() - p->cont->start_time), p->id);
 	else if (p->act == binging)
 		print_eat(p, current_time);
@@ -59,7 +59,7 @@ void	print_act(t_philo *p)
 		printf("%lld philo %d is sleeping\n", current_time, p->id);
 	else if (p->act == dead)
 	{
-		printf("%lld philo #%d died\n", current_time, p->id);
+		printf("%lld philo %d died\n", current_time, p->id);
 		p->cont->simulation = OVER;
 	}
 	pthread_mutex_unlock(&p->cont->print_mutex);
